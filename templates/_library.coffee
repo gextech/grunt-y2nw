@@ -1,6 +1,6 @@
 <%= code %>
 
-__Yadda = require('yadda')
+__Yadda = require('<%= yadda %>')
 __dictionary = new __Yadda.Dictionary()
 
 <% _.each(patterns, function(pattern, name) { %>

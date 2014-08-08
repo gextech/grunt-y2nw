@@ -139,7 +139,7 @@ module.exports = function(grunt) {
           library = _.template(grunt.file.read(library_tpl));
 
       var library_file = path.resolve(options.output_folder) + '/helpers/_library.js',
-          library_code = coffee.compile(library(scenarios),  { bare: true });
+          library_code = coffee.compile(library(_.merge({}, scenarios, { yadda: require.resolve('yadda') })),  { bare: true });
 
       grunt.file.write(library_file, library_code);
 
