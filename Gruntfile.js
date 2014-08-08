@@ -6,16 +6,14 @@ module.exports = function(grunt) {
     yadda: {
       jasmine: {
         options: {
-          steps_src: 'tests/jasmine/steps',
-          features_src: 'tests/jasmine/features'
+          tests_src: 'tests/jasmine'
         }
       },
       nightwatch: {
         options: {
-          steps_src: 'tests/nightwatch/steps',
-          features_src: 'tests/nightwatch/features',
-          output_filename: 'suitcase',
-          output_template: 'nightwatch.coffee'
+          tests_src: 'tests/nightwatch',
+          output_suffix: 'suitcase',
+          output_engine: 'nightwatch'
         }
       }
     },
