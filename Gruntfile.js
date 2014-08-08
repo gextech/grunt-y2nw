@@ -4,7 +4,12 @@ module.exports = function(grunt) {
       all: ['generated']
     },
     yadda: {
-      jasmine: {}
+      jasmine: {
+        options: {
+          steps_src: 'tests/jasmine/steps',
+          features_src: 'tests/jasmine/features'
+        }
+      }
     },
     jasmine_node: {
       all: ['generated/tests']
