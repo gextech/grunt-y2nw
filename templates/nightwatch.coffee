@@ -7,5 +7,4 @@ module.exports =
     __yadda.yadda <%= JSON.stringify(scenario.steps) %>, { browser }
 <% }) }) %>
 
-  'Close Session': (browser) ->
     browser.end()
