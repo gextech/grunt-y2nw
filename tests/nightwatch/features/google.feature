@@ -2,7 +2,7 @@ Feature: Nightwatch Example
 
 Scenario: Open Google and search for "[Term]"
 
-    Given <GoogleSearch>
+    Given @GoogleSearch
     When I search for "[Term]"
     Then should I see "[Result]"
 

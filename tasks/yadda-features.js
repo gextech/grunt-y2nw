@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       }
 
       function matchLabel(text) {
-        return text.match(/^[*+-]\s+(.+?)$/);
+        return text.match(/^(\w+\s+.+?)$/);
       }
 
       function matchCode(text) {
