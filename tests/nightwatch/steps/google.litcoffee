@@ -1,12 +1,11 @@
 
     page = null
-    pages =
-      GoogleSearch: require('../../src/google')
+    load = require('../../src/pages')
 
 Given @$CLASS
 
     (page_object) ->
-      page = new pages[page_object] @browser
+      page = load page_object, @browser
 
 When I search for "$TEXT"
 

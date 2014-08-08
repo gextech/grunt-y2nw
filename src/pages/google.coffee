@@ -1,8 +1,4 @@
-class Page
-  constructor: (@browser) ->
-    @browser
-      .url(@url)
-      .waitForElementVisible('body', 1000)
+Page = require('./page')
 
 class GoogleSearch extends Page
   url: 'http://google.com'
