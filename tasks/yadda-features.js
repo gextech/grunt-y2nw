@@ -144,24 +144,16 @@ module.exports = function(grunt) {
       grunt.file.write(library_file, library_code);
 
       _.each(features, function(feature, file) {
-        var feature_file = path.resolve(options.output_folder + '/tests/' + path.basename(file).replace('.feature', '') + '-' + options.output_suffix + '.js'),
+        var feature_name = path.basename(file).replace('.feature', '') + '-' + options.output_suffix,
+            feature_file = path.resolve(options.output_folder + '/tests/' + feature_name + '.js'),
             feature_code = coffee.compile(engine(feature), { bare: true });
 
         grunt.file.write(feature_file, feature_code);
         grunt.log.ok('Suitcase saved in ' + feature_file.replace(process.cwd() + '/', ''));
       });
 
-      _.each(grunt.file.expand(options.tests_src + '/helpers/**/*.{js,litcoffee,coffee.md}'), function(file) {
-        var helper_file = path.resolve(options.output_folder + '/' + file.replace(options.tests_src, '')),
-            helper_code = grunt.file.read(file);
-
-        helper_file = path.dirname(helper_file) + '/' + path.basename(file).split('.')[0] + '.js';
-
-        if (!/\.js$/.test(file)) {
-          helper_code = coffee.compile(helper_code, { bare: true });
-        }
-
-        grunt.file.write(helper_file, helper_code);
+      _.each(grunt.file.expand(options.tests_src + '/helpers/**/*.{coffee,js}'), function(file) {
+        grunt.file.copy(file, path.resolve(options.output_folder + '/' + file.replace(options.tests_src, '')));
       });
     } catch (e) {
       grunt.fatal(e);
