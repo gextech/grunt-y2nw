@@ -1,3 +1,5 @@
+<%= heading %>
+
 module.exports =
 
 <% _.each(features, function(feature) { _.each(feature.scenarios, function (scenario) { %>

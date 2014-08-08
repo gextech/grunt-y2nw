@@ -127,14 +127,17 @@ module.exports = function(grunt) {
             language: options.language || 'English',
             features: _.map(features, function(file) {
               return parser.parse(grunt.file.read(file).toString());
-            }),
+            })
           });
 
+      if (options.output_template.indexOf(path.resolve(__dirname + '/../templates')) > -1) {
+        template_params.heading = heading(template_params);
+      } else {
+        template_params.heading = _.isFunction(options.heading) ? options.heading(template_params) : options.heading;
+      }
+
       var generated_file = options.output_folder + '/' + options.output_filename + '.js',
-          generated_code = [
-            heading(template_params),
-            script(template_params)
-          ].join('');
+          generated_code = script(template_params);
 
       grunt.file.write(generated_file, coffee.compile(generated_code, { bare: true }));
       grunt.log.ok('Suitcase saved in ' + generated_file.replace(process.cwd() + '/', ''));
