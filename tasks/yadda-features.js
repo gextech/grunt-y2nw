@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  grunt.registerTask('yadda', 'Precompile Yadda-features into Nightwatch tests!', function(target) {
+  grunt.registerMultiTask('yadda', 'Precompile Yadda-features into Nightwatch tests!', function() {
     var _ = grunt.util._,
         fs = require('fs'),
         path = require('path'),

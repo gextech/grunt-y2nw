@@ -3,7 +3,9 @@ module.exports = function(grunt) {
     clean: {
       all: ['generated']
     },
-    yadda: {},
+    yadda: {
+      jasmine: {}
+    },
     jasmine_node: {
       all: ['generated/tests']
     }
@@ -13,5 +15,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jasmine-node');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('yadda-jasmine', ['clean', 'yadda', 'jasmine_node']);
+  grunt.registerTask('yadda-jasmine', ['clean', 'yadda:jasmine', 'jasmine_node']);
 };
