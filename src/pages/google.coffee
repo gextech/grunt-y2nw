@@ -3,13 +3,9 @@ Page = require('./page')
 class GoogleSearch extends Page
   url: 'http://google.com'
 
-  searchFor: (text) ->
-    @browser
-      .setValue('input[type=text]', text)
-      .click('button[name=btnG]')
-      .pause(1000)
-
-  hasFound: (val) ->
-    @browser.assert.containsText('#ires', val)
+  search:
+    input: 'input[type=text]'
+    submit: 'button[name=btnG]'
+    output: '#ires'
 
 module.exports = GoogleSearch
