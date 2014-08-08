@@ -1,7 +1,7 @@
 $NUM (\d+)
 
     wall = null
-    Wall = require('../../src/wall')
+    Wall = require('../helpers/wall')
 
 Given $NUM green bottles are standing on the wall
 

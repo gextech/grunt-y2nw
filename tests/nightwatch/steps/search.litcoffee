@@ -1,11 +1,11 @@
 
     page = null
-    load = require('../../src/pages')
+    util = require('../helpers')
 
 Given @$CLASS
 
     (page_object) ->
-      page = load page_object, @browser
+      page = util.pageFactory page_object, @browser
 
 When I search for "$TEXT"
 
