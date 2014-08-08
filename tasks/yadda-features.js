@@ -118,17 +118,23 @@ module.exports = function(grunt) {
         features = new Yadda.FeatureFileSearch(options.features_src).list(),
         parser = new Yadda.parsers.FeatureParser(language);
 
-    var script = _.template(grunt.file.read(options.output_template)),
-        scenarios = compileScenarios(grunt.file.expand(options.steps_src + '/**/*.litcoffee'));
-
     try {
-      var generated_file = options.output_folder + '/' + options.output_filename + '.js',
-          generated_code = script(_.merge({}, scenarios, {
+      var scenarios = compileScenarios(grunt.file.expand(options.steps_src + '/**/*.litcoffee')),
+          heading = _.template(grunt.file.read(path.resolve(__dirname + '/../templates/_header.coffee'))),
+          script = _.template(grunt.file.read(options.output_template));
+
+      var template_params = _.merge({}, scenarios, {
             language: options.language || 'English',
             features: _.map(features, function(file) {
               return parser.parse(grunt.file.read(file).toString());
             }),
-          }));
+          });
+
+      var generated_file = options.output_folder + '/' + options.output_filename + '.js',
+          generated_code = [
+            heading(template_params),
+            script(template_params)
+          ].join('');
 
       grunt.file.write(generated_file, coffee.compile(generated_code, { bare: true }));
       grunt.log.ok('Suitcase saved in ' + generated_file.replace(process.cwd() + '/', ''));
