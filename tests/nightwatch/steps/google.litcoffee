@@ -1,27 +1,19 @@
-$NUM (\d+)
-$URL (https?:\/\/\S+)
 
-- Given $URL
+    page = null
+    pages =
+      GoogleSearch: require('../../src/google')
 
-    (url_to_open) ->
-      @browser.url url_to_open
+- Given <$CLASS>
 
-- then I wait $NUM seconds? until <$EL> appears
+    (page_object) ->
+      page = new pages[page_object] @browser
 
-    (wait_n_seconds, selector) ->
-      @browser.waitForElementVisible selector, wait_n_seconds * 1000
+- When I search for "$TEXT"
 
-- Given "$KEYWORD" into <$EL>
+    (query_for_search) ->
+      page.searchFor query_for_search
 
-    (search_for, selector) ->
-      @browser.setValue selector, search_for
+- Then should I see "$TEXT"
 
-- then I click <$EL> and wait $NUM seconds?
-
-    (selector, wait_n_seconds) ->
-      @browser.click(selector).pause wait_n_seconds * 1000
-
-- then should I see "$TEXT" within <$EL>
-
-    (text_for, selector) ->
-      @browser.assert.containsText selector, text_for
+    (text_for_result) ->
+      page.hasFound text_for_result
