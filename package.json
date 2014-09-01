@@ -1,16 +1,16 @@
 {
-  "name": "grunt-yadda-precompile",
+  "name": "grunt-yadda-nightwatch",
   "version": "0.1.0",
-  "description": "Precompile Yadda-features into custom suitcases!",
+  "description": "Transform and execute Yadda-features into custom Nightwatch suitcases!",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gextech/grunt-yadda-precompile.git"
+    "url": "https://github.com/gextech/grunt-yadda-nightwatch.git"
   },
   "bugs": {
-    "url": "https://github.com/gextech/grunt-yadda-precompile/issues"
+    "url": "https://github.com/gextech/grunt-yadda-nightwatch/issues"
   },
   "keywords": [
-    "precompile",
+    "nightwatch",
     "features",
     "yadda"
   ],
@@ -26,6 +26,6 @@
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
-    "grunt-jasmine-node": "^0.2.1"
+    "grunt-nightwatch": "^0.2.4"
   }
 }

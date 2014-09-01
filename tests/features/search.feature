@@ -8,7 +8,7 @@ Scenario: Open [Engine] and search for "[Term]"
 
     Where:
       Engine | Term            | Result
-      Google | nodejs          | joyent/node
+      Google | nodejs          | nodejs.org
       Google | selenium        | Web Browser Automation
       Yahoo  | nightwatch js   | beatfactor/nightwatch
       Bing   | Grupo Expansión | grupoexpansion.mx

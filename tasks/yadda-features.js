@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  grunt.registerMultiTask('yadda', 'Precompile Yadda-features into Nightwatch tests!', function() {
+  grunt.registerMultiTask('yadda', 'Transform and execute Yadda-features into custom Nightwatch suitcases!', function() {
     var _ = grunt.util._,
         fs = require('fs'),
         path = require('path'),
@@ -8,10 +8,7 @@ module.exports = function(grunt) {
 
     var options = this.options({
       language: 'English',
-      tests_src: 'tests',
-      output_suffix: 'spec',
-      output_engine: 'jasmine',
-      output_folder: 'generated'
+      suffix: 'suitcase'
     });
 
     var language = options.language || 'English',
@@ -41,7 +38,7 @@ module.exports = function(grunt) {
         retval.steps.push({ code: '', labels: [] });
       }
 
-      function peak() {
+      function last() {
         return retval.steps[retval.steps.length - 1];
       }
 
@@ -60,11 +57,11 @@ module.exports = function(grunt) {
           } else if (testLine = matchCode(line)) {
             if (current.length) {
               addStep();
-              peak().labels = current;
+              last().labels = current;
               current = [];
             }
 
-            (retval.steps.length ? peak() : retval).code += testLine[1] + '\n';
+            (retval.steps.length ? last() : retval).code += testLine[1] + '\n';
           }
         }
       });
@@ -72,7 +69,7 @@ module.exports = function(grunt) {
       return retval;
     }
 
-    function compileScenarios() {
+    function compileScenarios(src) {
       var output = {
         code: '',
         steps: {},
@@ -80,9 +77,9 @@ module.exports = function(grunt) {
         language: language
       };
 
-      grunt.log.ok('Compiling scenarios from ' + options.tests_src);
+      grunt.log.ok('Compiling scenarios from ' + src);
 
-      _.each(grunt.file.expand(options.tests_src + '/steps/**/*.{litcoffee,coffee.md}'), function(file) {
+      _.each(grunt.file.expand(src + '/steps/**/*.{litcoffee,coffee.md}'), function(file) {
         if (!output.steps[file]) {
           output.steps[file] = [];
         }
@@ -116,47 +113,46 @@ module.exports = function(grunt) {
       return output;
     }
 
-    function compileFeatures() {
+    function compileFeatures(src) {
       var parser = new Yadda.parsers.FeatureParser(Language);
 
-      return _.object(_.map(new Yadda.FeatureFileSearch(options.tests_src + '/features').list(), function(file) {
+      return _.object(_.map(new Yadda.FeatureFileSearch(src + '/features').list(), function(file) {
         return [file, parser.parse(grunt.file.read(file))];
       }))
     }
 
-    try {
-      var engine_tpl = path.resolve(__dirname + '/../templates/' + options.output_engine + '.coffee'),
-          library_tpl = path.resolve(__dirname + '/../templates/_library.coffee');
+    this.files.forEach(function(file) {
+      var dest = file.dest;
 
-      if (!fs.existsSync(engine_tpl)) {
-        grunt.fatal('Missing template for ' + options.output_engine + ' yadda-output!');
-      }
+      file.src.forEach(function(src) {
+        try {
+          var features = compileFeatures(src),
+              scenarios = compileScenarios(src);
 
-      var features = compileFeatures(),
-          scenarios = compileScenarios();
+          var engine = _.template(grunt.file.read(path.resolve(__dirname + '/../templates/nightwatch.coffee')))
+              library = _.template(grunt.file.read(path.resolve(__dirname + '/../templates/_library.coffee')));
 
-      var engine = _.template(grunt.file.read(engine_tpl))
-          library = _.template(grunt.file.read(library_tpl));
+          var library_file = path.resolve(dest + '/helpers/_library.js'),
+              library_code = coffee.compile(library(_.merge({}, scenarios, { yadda: require.resolve('yadda') })),  { bare: true });
 
-      var library_file = path.resolve(options.output_folder) + '/helpers/_library.js',
-          library_code = coffee.compile(library(_.merge({}, scenarios, { yadda: require.resolve('yadda') })),  { bare: true });
+          grunt.file.write(library_file, library_code);
 
-      grunt.file.write(library_file, library_code);
+          _.each(features, function(feature, file) {
+            var feature_name = path.basename(file).replace('.feature', '') + '-' + options.suffix,
+                feature_file = path.resolve(dest + '/tests/' + feature_name + '.js'),
+                feature_code = coffee.compile(engine(feature), { bare: true });
 
-      _.each(features, function(feature, file) {
-        var feature_name = path.basename(file).replace('.feature', '') + '-' + options.output_suffix,
-            feature_file = path.resolve(options.output_folder + '/tests/' + feature_name + '.js'),
-            feature_code = coffee.compile(engine(feature), { bare: true });
+            grunt.file.write(feature_file, feature_code);
+            grunt.log.ok('Suitcase saved in ' + feature_file.replace(process.cwd() + '/', ''));
+          });
 
-        grunt.file.write(feature_file, feature_code);
-        grunt.log.ok('Suitcase saved in ' + feature_file.replace(process.cwd() + '/', ''));
+          _.each(grunt.file.expand(src + '/helpers/**/*.{coffee,js}'), function(file) {
+            grunt.file.copy(file, path.resolve(dest + '/' + file.replace(src, '')));
+          });
+        } catch (e) {
+          grunt.fatal(e);
+        }
       });
-
-      _.each(grunt.file.expand(options.tests_src + '/helpers/**/*.{coffee,js}'), function(file) {
-        grunt.file.copy(file, path.resolve(options.output_folder + '/' + file.replace(options.tests_src, '')));
-      });
-    } catch (e) {
-      grunt.fatal(e);
-    }
+    });
   });
 };

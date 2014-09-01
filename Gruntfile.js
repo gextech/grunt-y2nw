@@ -4,35 +4,32 @@ module.exports = function(grunt) {
       all: ['generated']
     },
     yadda: {
-      jasmine: {
-        options: {
-          tests_src: 'tests/jasmine'
-        }
-      },
       nightwatch: {
-        options: {
-          tests_src: 'tests/nightwatch',
-          output_suffix: 'suitcase',
-          output_engine: 'nightwatch'
-        }
+        src: 'tests',
+        dest: 'generated'
       }
     },
     nightwatch: {
       options: {
         standalone: true,
         src_folders: ['generated/tests']
+      },
+      saucelabs: {
+        silent: true,
+        selenium_host: 'localhost',
+        selenium_port: 4445,
+        desiredCapabilities: {
+          username: '${SAUCE_USERNAME}',
+          accessKey: '${SAUCE_ACCESS_KEY}'
+        }
       }
-    },
-    jasmine_node: {
-      all: ['generated/tests']
     }
   });
 
   grunt.loadTasks('tasks');
   grunt.loadNpmTasks('grunt-nightwatch');
-  grunt.loadNpmTasks('grunt-jasmine-node');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('yadda-jasmine', ['clean', 'yadda:jasmine', 'jasmine_node']);
-  grunt.registerTask('yadda-nightwatch', ['clean', 'yadda:nightwatch', 'nightwatch']);
+  grunt.registerTask('test', ['clean', 'yadda', 'nightwatch']);
+  grunt.registerTask('test:saucelabs', ['yadda', 'nightwatch:saucelabs']);
 };
