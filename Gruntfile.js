@@ -11,7 +11,6 @@ module.exports = function(grunt) {
     },
     nightwatch: {
       options: {
-        standalone: true,
         src_folders: ['generated/tests']
       },
       saucelabs: {
