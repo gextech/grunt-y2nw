@@ -9,10 +9,7 @@ module.exports = function(grunt) {
     nightwatch: {
       options: {
         src_folders: 'generated/tests',
-        output_folder: 'generated/report',
-        desiredCapabilities: {
-          browserName: 'chrome'
-        }
+        output_folder: 'generated/report'
       },
       local: {
         standalone: true,
@@ -20,6 +17,9 @@ module.exports = function(grunt) {
           cli_args: {
             'webdriver.chrome.driver': '/opt/selenium/chromedriver'
           }
+        },
+        desiredCapabilities: {
+          browserName: 'chrome'
         }
       }
     }
