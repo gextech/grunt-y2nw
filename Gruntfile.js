@@ -21,6 +21,14 @@ module.exports = function(grunt) {
         desiredCapabilities: {
           browserName: 'chrome'
         }
+      },
+      saucelabs: {
+        selenium_host: 'localhost',
+        selenium_port: 4445,
+        desiredCapabilities: {
+          username: '${SAUCE_USERNAME}',
+          accessKey: '${SAUCE_ACCESS_KEY}'
+        }
       }
     }
   });
