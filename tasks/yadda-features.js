@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  grunt.registerMultiTask('yadda', 'Transform and execute Yadda-features into custom Nightwatch suitcases!', function() {
+  grunt.registerMultiTask('y2nw', 'Transform and execute Yadda-features into custom Nightwatch suitcases!', function() {
     var _ = grunt.util._,
         fs = require('fs'),
         y2nw = require('y2nw'),

@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    yadda: {
+    y2nw: {
       local: {
         src: 'tests',
         dest: 'generated'
