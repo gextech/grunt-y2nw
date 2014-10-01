@@ -1,6 +1,6 @@
 {
   "name": "grunt-y2nw",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Transform Yadda-features into custom Nightwatch suitcases!",
   "repository": {
     "type": "git",
