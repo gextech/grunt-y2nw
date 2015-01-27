@@ -1,9 +1,11 @@
+var fs = require('fs'),
+    y2nw = require('y2nw'),
+    Async = require('async-parts');
+
 module.exports = function(grunt) {
   grunt.registerMultiTask('y2nw', 'Transform and execute Yadda-features into custom Nightwatch suitcases!', function() {
     var _ = grunt.util._,
-        fs = require('fs'),
-        y2nw = require('y2nw'),
-        tasks = require('segueta')();
+        tasks = new Async();
 
     var options = this.options();
 
@@ -31,7 +33,7 @@ module.exports = function(grunt) {
       });
     });
 
-    tasks.done(function(err) {
+    tasks.run(function(err) {
       if (err) {
         grunt.fatal(err);
       }
