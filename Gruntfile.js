@@ -13,11 +13,7 @@ module.exports = function(grunt) {
       },
       local: {
         standalone: true,
-        selenium: {
-          cli_args: {
-            'webdriver.chrome.driver': '/opt/selenium/chromedriver'
-          }
-        },
+        chrome_driver_path: '/opt/selenium/chromedriver',
         desiredCapabilities: {
           browserName: 'chrome'
         }
