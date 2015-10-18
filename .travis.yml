@@ -1,13 +1,15 @@
 env:
   global:
-    - secure: FHEMPz3hG2avo2Oxm11E89uBJRQSqeXjhC02IHdb4ItPH7zQnkaZJZ8GmY9hZlcsli0OJeglmCZ3KBeN3369ZArFq2QFkU2AKMm8AZ9tmJaRIF/k2eYfFs9C7cYDg7/Z8hGyu0sfcOfdNK7fdvJ2hvSuMJijYzcT+aIUPUl4VCM=
-    - secure: JHvlyLHiD+Kmrt6HcPB41PgbXPD8b81DJ/MGauxEkUSuDrFurwJ8w+ELUaG3QfFmHlsNcN5u9IEmSp8sh6Mg7MgV1okyda+EKpVVLOcJns7QF3/xY0aYnMz9/8F/YkrbHMm2kQgT6+fouBAhaVD7GIxXrP/Esq2TzOC7pMpx1ns=
+  - secure: fjmJ3/iL71bkTN0z/6o/YQr2T2xpsT/kOKt6O2TK/4jZ1qX5O+yiIHnIMZTG5FrqwxrWLJ0n0ArTzYEJNcnlyRGsGsrD2frNX9q06zbYEfNIj3ifxh/jRz8t8kfJr4VgpHPQx5NMMCqhk/1QKEglRN0775ILUhKynjmKlWsujps=
+  - secure: hJu4M/d87RRdmB2J5PziDv019SO8y8nxiIgC+n+DkeavcmDx7u9bD+mXNcrnD6sQaBVqycN+5NhumaCkTZWRnzaGjcG0u7Kr1l174GuAg414MrNTIDTinW2waZJpHaFLn0CO/6N0ZmbcOZO32qmrI3W+rXLoHMKAPT8v+wPccSc=
 addons:
   sauce_connect: true
 language: node_js
 node_js:
-  - 0.10
+- 0.1
+- 0.12
+- iojs
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
 script:
-  - grunt y2nw nightwatch:saucelabs
+- grunt y2nw nightwatch:saucelabs
