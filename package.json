@@ -1,6 +1,6 @@
 {
   "name": "grunt-y2nw",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Transform Yadda-features into custom Nightwatch suitcases!",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "async-parts": "^0.2.1",
-    "y2nw": "0.0.8",
+    "y2nw": ">=0.0.9",
     "yadda": "^0.10.14"
   },
   "devDependencies": {

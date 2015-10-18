@@ -1,5 +1,6 @@
-var fs = require('fs'),
-    y2nw = require('y2nw'),
+'use strict';
+
+var y2nw = require('y2nw'),
     Async = require('async-parts');
 
 module.exports = function(grunt) {
@@ -15,7 +16,7 @@ module.exports = function(grunt) {
       var dest = file.orig.dest;
 
       (file.src || file.orig.src).forEach(function(src) {
-        var params = _.merge({ src: src, dest: dest }, options)
+        var params = _.merge({ src: src, dest: dest }, options);
 
         tasks.then(function(next) {
           grunt.log.write('Loading features from "' + params.src + '" ... ');
