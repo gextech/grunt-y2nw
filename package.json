@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "async-parts": "^0.2.1",
-    "y2nw": "0.0.4",
+    "y2nw": "0.0.8",
     "yadda": "^0.10.14"
   },
   "devDependencies": {
