@@ -6,6 +6,7 @@ class Page
 
   searchFor: (text) ->
     @browser
+      .waitForElementVisible(@search.input, 1000)
       .setValue(@search.input, text)
       .click(@search.submit)
       .pause(1000)
