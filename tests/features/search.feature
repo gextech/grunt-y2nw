@@ -1,8 +1,8 @@
 Feature: Nightwatch Example
 
-Scenario: Open [Engine] and search for "[Term]"
+Scenario: [Engine] search engine
 
-    Given @[Engine]Search
+    Given [Engine]Search
     When I search for "[Term]"
     Then should I see "[Result]"
 

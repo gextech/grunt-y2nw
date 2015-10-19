@@ -4,7 +4,7 @@ Testing suitcase
     page = null
     util = require('../helpers')
 
-Given @$searchEngine.
+Given $searchEngine.
 
     (page_object) ->
       page = util.pageFactory page_object, @browser
