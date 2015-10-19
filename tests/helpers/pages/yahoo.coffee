@@ -1,7 +1,7 @@
 Page = require('./page')
 
 class YahooSearch extends Page
-  url: 'http://yahoo.com'
+  url: 'http://www.yahoo.com'
 
   search:
     input: 'input[name=p]'
