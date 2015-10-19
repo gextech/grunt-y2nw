@@ -8,4 +8,4 @@ class BingSearch extends Page
     submit: 'input[type=submit]'
     output: '#b_results'
 
-  module.exports = BingSearch
+module.exports = BingSearch
