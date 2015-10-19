@@ -10,5 +10,5 @@ Scenario: Open [Engine] and search for "[Term]"
       Engine | Term            | Result
       Google | nodejs          | nodejs.org
       Google | selenium        | Web Browser Automation
-      Yahoo  | nightwatch js   | beatfactor/nightwatch
+      Yahoo  | nightwatch js   | Nightwatch.js
       Bing   | Grupo Expansión | grupoexpansion.mx

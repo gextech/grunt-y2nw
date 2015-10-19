@@ -8,14 +8,17 @@ module.exports = function(grunt) {
     },
     nightwatch: {
       options: {
+        argv: grunt.cli.options,
         src_folders: 'generated/tests',
         output_folder: 'generated/report'
       },
       local: {
         standalone: true,
-        chrome_driver_path: '/opt/selenium/chromedriver',
         desiredCapabilities: {
           browserName: 'chrome'
+        },
+        cli_args: {
+          'webdriver.chrome.driver': '/opt/selenium/chromedriver'
         }
       },
       saucelabs: {
