@@ -10,5 +10,4 @@ Scenario: [Engine] search engine
       Engine | Term            | Result
       Google | nodejs          | nodejs.org
       Google | selenium        | Web Browser Automation
-      Yahoo  | nightwatch js   | Nightwatch.js
       Bing   | Grupo Expansión | grupoexpansion.mx
